@@ -14,7 +14,12 @@ namespace BankAccount
         public decimal Balance { get; set; }
 
         //Lägg till Konstruktor
-
+        public BankAccount(string accNumber, string accHolder, decimal balance)
+        {
+            AccountNumber = accNumber;
+            AccountHolder = accHolder;
+            Balance = balance;
+        }
 
         //Lägg till Metoder
 
