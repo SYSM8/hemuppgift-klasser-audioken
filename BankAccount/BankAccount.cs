@@ -22,7 +22,10 @@ namespace BankAccount
         }
 
         //Lägg till Metoder
-
+        public void Deposit(decimal deposit)
+        {
+            Balance += deposit;
+        }
 
         //Lycka till! :)
     }
