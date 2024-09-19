@@ -25,6 +25,12 @@ namespace BankAccount
         public void Deposit(decimal deposit)
         {
             Balance += deposit;
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nDu har satt in: {deposit} kr!");
+            Console.WriteLine($"Ditt nya saldo är: {Balance} kr.");
+            Console.ResetColor();
+
         }
         public void Withdraw(decimal withdraw)
         {
@@ -32,18 +38,27 @@ namespace BankAccount
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nDu har för lite pengar på kontot!");
-                Console.WriteLine($"Du kan som mest ta ut {Balance} kr.");
+                Console.WriteLine($"Du kan som mest ta ut: {Balance} kr.");
             }
             else
             {
                 Balance -= withdraw;
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\nDu har tagit ut {withdraw} kr.");
+                Console.WriteLine($"\nDu har tagit ut: {withdraw} kr!");
+                Console.WriteLine($"Ditt nya saldo är: {Balance} kr.");
             }
 
             Console.ResetColor();
         }
+
+        public void DisplayBalance()
+        {
+            Console.ForegroundColor= ConsoleColor.Green;
+            Console.WriteLine($"\nDitt saldo är: {Balance} kr");
+            Console.ResetColor();
+        }
+
         //Lycka till! :)
     }
 }
