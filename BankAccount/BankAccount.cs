@@ -26,7 +26,24 @@ namespace BankAccount
         {
             Balance += deposit;
         }
+        public void Withdraw(decimal withdraw)
+        {
+            if (withdraw > Balance)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nDu har för lite pengar på kontot!");
+                Console.WriteLine($"Du kan som mest ta ut {Balance} kr.");
+            }
+            else
+            {
+                Balance -= withdraw;
 
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\nDu har tagit ut {withdraw} kr.");
+            }
+
+            Console.ResetColor();
+        }
         //Lycka till! :)
     }
 }
