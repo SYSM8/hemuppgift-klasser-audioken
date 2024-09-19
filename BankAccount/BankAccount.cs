@@ -8,57 +8,58 @@ namespace BankAccount
 {
     public class BankAccount
     {
-        //Lägg till Egenskaper (fields)
-        public string AccountNumber { get; set; }
+        // FIELDS
+        public int AccountNumber { get; set; }
         public string AccountHolder { get; set; }
         public decimal Balance { get; set; }
 
-        //Lägg till Konstruktor
-        public BankAccount(string accNumber, string accHolder, decimal balance)
+        // CONSTRUCTOR
+        public BankAccount(int accNumber, string accHolder, decimal balance)
         {
             AccountNumber = accNumber;
             AccountHolder = accHolder;
             Balance = balance;
         }
 
-        //Lägg till Metoder
+        // METHOD - Deposit funds to account
         public void Deposit(decimal deposit)
         {
             Balance += deposit;
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nDu har satt in: {deposit} kr!");
-            Console.WriteLine($"Ditt nya saldo är: {Balance} kr.");
+            Console.WriteLine($"\nYou have deposited: {deposit} kr!");
+            Console.WriteLine($"Your balance: {Balance} kr.");
             Console.ResetColor();
 
         }
+
+        // METHOD - Withdraw funds if available on account
         public void Withdraw(decimal withdraw)
         {
             if (withdraw > Balance)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nDu har för lite pengar på kontot!");
-                Console.WriteLine($"Du kan som mest ta ut: {Balance} kr.");
+                Console.WriteLine($"\nYou dont have enought funds!");
+                Console.WriteLine($"Your balance: {Balance} kr.");
             }
             else
             {
                 Balance -= withdraw;
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\nDu har tagit ut: {withdraw} kr!");
-                Console.WriteLine($"Ditt nya saldo är: {Balance} kr.");
+                Console.WriteLine($"\nYou have withdrawn: {withdraw} kr!");
+                Console.WriteLine($"Your balance: {Balance} kr.");
             }
 
             Console.ResetColor();
         }
 
+        // METHOD - Display balance on account
         public void DisplayBalance()
         {
             Console.ForegroundColor= ConsoleColor.Green;
-            Console.WriteLine($"\nDitt saldo är: {Balance} kr");
+            Console.WriteLine($"Your balance: {Balance} kr.");
             Console.ResetColor();
         }
-
-        //Lycka till! :)
     }
 }
