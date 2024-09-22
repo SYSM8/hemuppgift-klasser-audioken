@@ -26,9 +26,10 @@ namespace BankAccount
         {
             AccountBalance += deposit;
 
+            Console.WriteLine("\n====================================================");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nYou have deposited: {deposit} kr!");
-            Console.WriteLine($"Your balance is: {AccountBalance} kr.");
+            Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
             Console.ResetColor();
 
         }
@@ -38,25 +39,27 @@ namespace BankAccount
         {
             if (withdraw > AccountBalance)
             {
+                Console.WriteLine("\n====================================================");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nYou dont have enought funds!");
-                Console.WriteLine($"Your balance is: {AccountBalance} kr.");
+                Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
             }
             else
             {
                 AccountBalance -= withdraw;
 
+                Console.WriteLine("\n====================================================");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\nYou have withdrawn: {withdraw} kr!");
-                Console.WriteLine($"Your balance is: {AccountBalance} kr.");
+                Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
             }
-
             Console.ResetColor();
         }
 
         // METHOD - Display balance on account
         public void DisplayBalance()
         {
+            Console.WriteLine("\n====================================================");
             Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
             Console.ResetColor();

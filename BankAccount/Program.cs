@@ -9,6 +9,7 @@ namespace BankAccount
     {
         // USER ACCOUNT TO BE ACCESSIBLE IN ALL METHODS
         private static BankAccount? account;
+        private static BankAccount? currentAccount;
 
         // LIST TO STORE NEW ACCOUNTS
         private static List<BankAccount> accountList = new List<BankAccount>();
@@ -69,12 +70,32 @@ namespace BankAccount
 
         static void SignIn() // FIX THIS METHOD
         {
+            Console.WriteLine("Enter your name to sign in..");
+            string signInUsername = Console.ReadLine();
 
+            foreach (BankAccount account in accountList)
+            {
+                if (account.AccountHolder == signInUsername)
+                {
+                    // Copy found useraccount to temporary account
+                    currentAccount = account;
+
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\nACCOUNT INFO:");
+                    Console.WriteLine($"Name: {account.AccountHolder}\nAccount: {account.AccountNumber}\nBalance: {account.AccountBalance} kr");
+                    Console.ResetColor();
+                    break;
+                }
+
+            }
         }
 
         static void CreateAccount()
         {
-            Console.WriteLine("\nEnter your name below to generate a new account.");
+            Console.WriteLine("\n====================================================");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nEnter your name and surname to generate an account.");
+            Console.ResetColor();
 
             // Individual parameters for user account
             accountHolder = NameInput();
@@ -84,13 +105,17 @@ namespace BankAccount
             // Create new bank account for user based on parameters
             account = new BankAccount(accountNumber, accountHolder, accountBalance);
 
-            // Adds account to list to enable sign in
+            // Adds account to list to help with "sign in name-matching" and admin printouts
             accountList.Add(account);
 
+            // Copy the account to a temporary one to control which use profile can be edited at sign in and account creation
+            currentAccount = account;
+
+            Console.WriteLine("\n====================================================");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nYou successfully created a new account!");
 
-            Console.WriteLine("\nAccount info:");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nName: {account.AccountHolder}\nAccount: {account.AccountNumber}\nBalance: {account.AccountBalance} kr");
             Console.ResetColor();
         }
@@ -152,8 +177,8 @@ namespace BankAccount
         // ADMIN PRINOUT OF ALL ACTIVE BANK ACCOUNTS
         static void AdminAccountList()
         {
-           Console.ForegroundColor = ConsoleColor.Yellow;
-
+            Console.WriteLine("\n====================================================");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nALL ACCOUNTS ({accountList.Count}) AT SUPERIOR TRANSACTIONS BANK:");
 
             foreach (BankAccount account in accountList)
@@ -167,16 +192,16 @@ namespace BankAccount
         // USER MENU WHEN SIGNED IN
         static bool AccountMenu()
         {
-            // Display who is signed in for clarity
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nSigned in as: {account.AccountHolder}");
-            Console.ResetColor();
-
             bool signOut = false;
 
             while (!signOut)
             {
                 Console.WriteLine("\n=================== ACCOUNT MENU ===================");
+
+                // Display who is signed in for clarity
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\nSigned in as: {currentAccount.AccountHolder}");
+                Console.ResetColor();
 
                 Console.WriteLine("\n[1] Deposit");
                 Console.WriteLine("[2] Withdraw");
@@ -190,7 +215,7 @@ namespace BankAccount
                 {
                     case ConsoleKey.D1: Deposit(); break;
                     case ConsoleKey.D2: Withdraw(); break;
-                    case ConsoleKey.D3: account.DisplayBalance(); break;
+                    case ConsoleKey.D3: currentAccount.DisplayBalance(); break;
                     case ConsoleKey.Escape: return signOut = true;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -198,6 +223,8 @@ namespace BankAccount
                         Console.ResetColor();
                         break;
                 }
+
+                account = currentAccount;
             } 
 
             return signOut;
@@ -212,10 +239,10 @@ namespace BankAccount
                 Console.Write("\nDeposit ammount: ");
 
                 // Checking correct input
-                if (account != null && decimal.TryParse(Console.ReadLine(), out decimal deposit) && deposit > 0)
+                if (currentAccount != null && decimal.TryParse(Console.ReadLine(), out decimal deposit) && deposit > 0)
                 {
                     correctInput = true;
-                    account.Deposit(deposit); // Sends a valid deposit amount as an argument to method within BankAccount class
+                    currentAccount.Deposit(deposit); // Sends a valid deposit amount as an argument to method within BankAccount class
                 }
                 else
                 {
@@ -235,10 +262,10 @@ namespace BankAccount
             {
                 Console.Write("\nWithdraw ammount: ");
 
-                if (account != null && decimal.TryParse(Console.ReadLine(), out decimal withdraw) && withdraw > 0)
+                if (currentAccount != null && decimal.TryParse(Console.ReadLine(), out decimal withdraw) && withdraw > 0)
                 {
                     correctInput = true;
-                    account.Withdraw(withdraw);
+                    currentAccount.Withdraw(withdraw);
                 }
                 else
                 {
@@ -273,7 +300,6 @@ namespace BankAccount
                 signOut = AccountMenu();
 
             } while (signOut);
-
         }
     }
 }
