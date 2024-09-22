@@ -60,7 +60,7 @@ namespace BankAccount
         public void DisplayBalance()
         {
             Console.WriteLine("\n====================================================");
-            Console.ForegroundColor= ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
             Console.ResetColor();
         }

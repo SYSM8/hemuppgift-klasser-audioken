@@ -9,6 +9,8 @@ namespace BankAccount
     {
         // USER ACCOUNT TO BE ACCESSIBLE IN ALL METHODS
         private static BankAccount? account;
+
+        // COPY OF ORIGINAL ACCOUNT
         private static BankAccount? currentAccount;
 
         // LIST TO STORE NEW ACCOUNTS
@@ -52,14 +54,27 @@ namespace BankAccount
 
                 switch (keyInput.Key)
                 {
-                    case ConsoleKey.D1: SignIn(); correctInput = true; break; // Calls method for sign in process
+                    case ConsoleKey.D1:  
+                        if (accountList.Count > 0)
+                        {
+                            SignIn(); // Calls method for sign in process
+                            correctInput = true; 
+                            break; 
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("\nYou have no accounts. Create a new one.. ");
+                            Console.ResetColor();
+                            break;
+                        }
                     case ConsoleKey.D2: CreateAccount(); correctInput = true; break; // Possibility for user to create a new bank account
                     case ConsoleKey.D3: AdminAccountList(); break; // Admin access to print all exisiting bank accounts
                     case ConsoleKey.Escape: return exitApplication = true;
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\nPress 1, 2, 3 or Escape");
+                        Console.WriteLine("\nPress 1, 2, 3 or ESCAPE..");
                         Console.ResetColor();
                         break;
                 }
@@ -68,16 +83,20 @@ namespace BankAccount
             return exitApplication;
         }
 
-        static void SignIn() // FIX THIS METHOD
+        static void SignIn()
         {
-            Console.WriteLine("Enter your name to sign in..");
-            string signInUsername = Console.ReadLine();
+            Console.WriteLine("\n===================== SIGN IN ======================");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nEnter your full name to sign in..");
+            Console.WriteLine();
+            Console.ResetColor();
+            string? signInUsername = Console.ReadLine();
 
             foreach (BankAccount account in accountList)
             {
-                if (account.AccountHolder == signInUsername)
+                if (signInUsername != null && account.AccountHolder == signInUsername)
                 {
-                    // Copy found useraccount to temporary account
+                    // Copy the found user account to a temporary account
                     currentAccount = account;
 
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -92,7 +111,7 @@ namespace BankAccount
 
         static void CreateAccount()
         {
-            Console.WriteLine("\n====================================================");
+            Console.WriteLine("\n================= CREATE ACCOUNT ===================");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nEnter your name and surname to generate an account.");
             Console.ResetColor();
@@ -177,7 +196,7 @@ namespace BankAccount
         // ADMIN PRINOUT OF ALL ACTIVE BANK ACCOUNTS
         static void AdminAccountList()
         {
-            Console.WriteLine("\n====================================================");
+            Console.WriteLine("\n================ ADMIN ACCOUNT LIST ================");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nALL ACCOUNTS ({accountList.Count}) AT SUPERIOR TRANSACTIONS BANK:");
 
@@ -199,9 +218,7 @@ namespace BankAccount
                 Console.WriteLine("\n=================== ACCOUNT MENU ===================");
 
                 // Display who is signed in for clarity
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\nSigned in as: {currentAccount.AccountHolder}");
-                Console.ResetColor();
+                SignedInAs();
 
                 Console.WriteLine("\n[1] Deposit");
                 Console.WriteLine("[2] Withdraw");
@@ -230,8 +247,18 @@ namespace BankAccount
             return signOut;
         }
 
+        static void SignedInAs()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\nSigned in as: {currentAccount.AccountHolder}");
+            Console.ResetColor();
+        }
+
         static void Deposit()
         {
+            Console.WriteLine("\n===================== DEPOSIT ======================");
+            SignedInAs();
+
             bool correctInput = false;
 
             do
@@ -247,7 +274,7 @@ namespace BankAccount
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You have to enter a positive number..");
+                    Console.WriteLine("\nYou have to enter a positive number..");
                     Console.ResetColor();
                 }
 
@@ -256,6 +283,9 @@ namespace BankAccount
 
         static void Withdraw()
         {
+            Console.WriteLine("\n==================== WITHDRAWAL ====================");
+            SignedInAs();
+
             bool correctInput;
 
             do
@@ -272,7 +302,7 @@ namespace BankAccount
                     correctInput = false;
 
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("You have to enter a positive number..");
+                    Console.WriteLine("\nYou have to enter a positive number..");
                     Console.ResetColor();
                 }
 
