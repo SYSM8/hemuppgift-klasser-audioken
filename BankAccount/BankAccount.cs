@@ -11,24 +11,24 @@ namespace BankAccount
         // FIELDS
         public int AccountNumber { get; set; }
         public string AccountHolder { get; set; }
-        public decimal Balance { get; set; }
+        public decimal AccountBalance { get; set; }
 
         // CONSTRUCTOR
-        public BankAccount(int accNumber, string accHolder, decimal balance)
+        public BankAccount(int accNumber, string accHolder, decimal accBalance)
         {
             AccountNumber = accNumber;
             AccountHolder = accHolder;
-            Balance = balance;
+            AccountBalance = accBalance;
         }
 
         // METHOD - Deposit funds to account
         public void Deposit(decimal deposit)
         {
-            Balance += deposit;
+            AccountBalance += deposit;
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nYou have deposited: {deposit} kr!");
-            Console.WriteLine($"Your balance: {Balance} kr.");
+            Console.WriteLine($"Your balance is: {AccountBalance} kr.");
             Console.ResetColor();
 
         }
@@ -36,19 +36,19 @@ namespace BankAccount
         // METHOD - Withdraw funds if available on account
         public void Withdraw(decimal withdraw)
         {
-            if (withdraw > Balance)
+            if (withdraw > AccountBalance)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nYou dont have enought funds!");
-                Console.WriteLine($"Your balance: {Balance} kr.");
+                Console.WriteLine($"Your balance is: {AccountBalance} kr.");
             }
             else
             {
-                Balance -= withdraw;
+                AccountBalance -= withdraw;
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\nYou have withdrawn: {withdraw} kr!");
-                Console.WriteLine($"Your balance: {Balance} kr.");
+                Console.WriteLine($"Your balance is: {AccountBalance} kr.");
             }
 
             Console.ResetColor();
@@ -58,7 +58,7 @@ namespace BankAccount
         public void DisplayBalance()
         {
             Console.ForegroundColor= ConsoleColor.Green;
-            Console.WriteLine($"Your balance: {Balance} kr.");
+            Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
             Console.ResetColor();
         }
     }
