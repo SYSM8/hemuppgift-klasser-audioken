@@ -28,8 +28,8 @@ namespace BankAccount
 
             Console.WriteLine("\n====================================================");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nYou have deposited: {deposit} kr!");
-            Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
+            Console.WriteLine($"\nYou have deposited {deposit} kr!");
+            Console.WriteLine($"\nYour balance: {AccountBalance} kr.");
             Console.ResetColor();
 
         }
@@ -42,7 +42,7 @@ namespace BankAccount
                 Console.WriteLine("\n====================================================");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nYou dont have enought funds!");
-                Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
+                Console.WriteLine($"\nYour balance: {AccountBalance} kr.");
             }
             else
             {
@@ -50,8 +50,8 @@ namespace BankAccount
 
                 Console.WriteLine("\n====================================================");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\nYou have withdrawn: {withdraw} kr!");
-                Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
+                Console.WriteLine($"\nYou have withdrawn {withdraw} kr!");
+                Console.WriteLine($"\nYour balance: {AccountBalance} kr.");
             }
             Console.ResetColor();
         }
@@ -61,7 +61,7 @@ namespace BankAccount
         {
             Console.WriteLine("\n====================================================");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nYour balance is: {AccountBalance} kr.");
+            Console.WriteLine($"\nYour balance: {AccountBalance} kr.");
             Console.ResetColor();
         }
     }

@@ -232,11 +232,11 @@ namespace BankAccount
                 {
                     case ConsoleKey.D1: Deposit(); break;
                     case ConsoleKey.D2: Withdraw(); break;
-                    case ConsoleKey.D3: currentAccount.DisplayBalance(); break;
+                    case ConsoleKey.D3: currentAccount?.DisplayBalance(); break;
                     case ConsoleKey.Escape: return signOut = true;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\nYou have to enter a valid number..");
+                        Console.WriteLine("\nPress 1, 2, 3 or ESCAPE..");
                         Console.ResetColor();
                         break;
                 }
@@ -250,7 +250,7 @@ namespace BankAccount
         static void SignedInAs()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nSigned in as: {currentAccount.AccountHolder}");
+            Console.WriteLine($"\nSigned in as: {currentAccount?.AccountHolder}");
             Console.ResetColor();
         }
 
